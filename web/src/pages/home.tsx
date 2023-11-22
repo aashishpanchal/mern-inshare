@@ -8,7 +8,9 @@ import undrawUpload from "@/assets/svg/undraw-upload.svg";
 import AnimationWrapper from "@/components/animation-wrapper";
 
 export default function Home() {
-  const [url, setUrl] = useState<string>("");
+  const [url, setUrl] = useState<string>(
+    "http://localhost:5173/451474dfd773434bac5861fe47ae7938"
+  );
   const [progress, setProgress] = useState<number>(0);
 
   const onUpload = async (files: FileList) => {

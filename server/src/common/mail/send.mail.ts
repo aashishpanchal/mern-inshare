@@ -40,7 +40,7 @@ export async function sendMail(sendMailOptions: ISendMailOptions) {
   // check connection configuration
   if (!verify)
     throw new InternalServerError("Failed to connect to mail server");
-  sendMailOptions.from = sendMailOptions.from;
+  sendMailOptions.from = config.getOrThrow("mail.from");
   // after send mail, return the result
   return await transporter.sendMail(sendMailOptions);
 }

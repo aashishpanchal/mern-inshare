@@ -57,14 +57,15 @@ class FileService {
         where: { uuid: data.id },
       });
       if (!file) throw new BadRequest("Link has been expired.");
+      const emailFrom = config.get("mail.from");
       // send email
       await sendMail({
-        to: data.from,
-        from: data.to,
+        to: data.to,
         subject: "inShare file sharing",
         template: "send-email",
+        text: `${emailFrom} shared a file with you.`,
         context: {
-          emailFrom: data.from,
+          emailFrom,
           size: parseInt((file.size / 1000) as any) + " KB",
           expires: "24 hours",
           downloadLink: `${config.get("APP_BASE_URL")}/${file.uuid}`,

@@ -34,7 +34,7 @@ export default function SendMail(props: Props) {
       toast.success(message);
     } catch (error) {
     } finally {
-      reset({ to: "", from: "" });
+      reset({ to: "" });
       setLoading(false);
     }
   }
@@ -49,14 +49,6 @@ export default function SendMail(props: Props) {
           placeholder="to@gmail.com"
           left={<MailIcon />}
           error={errors.to?.message}
-          disabled={!props.url}
-        />
-        <TextField
-          {...register("from")}
-          label="Receiver's Email"
-          placeholder="from@gmail.com"
-          left={<MailIcon />}
-          error={errors.from?.message}
           disabled={!props.url}
         />
         <input type="hidden" defaultValue={id} {...register("id")} />
