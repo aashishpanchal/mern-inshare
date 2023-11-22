@@ -1,7 +1,10 @@
 node_modules
 # Keep environment variables out of version control
 .env
-build
+public
 dist
 logs
 uploads
+migrations
+*.db
+*.db-journal
