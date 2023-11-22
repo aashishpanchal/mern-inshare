@@ -4,7 +4,9 @@
   "description": "it's backend of share-me application.",
   "main": "dist/main.js",
   "scripts": {
-    "build": "nest build",
+    "build": "pnpm db:deploy && pnpm db:generate && nest build",
+    "db:deploy": "pnpm prisma migrate deploy",
+    "db:generate": "pnpm prisma generate",
     "start": "node dist/main",
     "dev": "nest start -b swc --watch"
   },

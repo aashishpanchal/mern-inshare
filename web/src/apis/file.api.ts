@@ -1,7 +1,6 @@
 import { api } from "@/axios/instance";
 import { toast } from "react-hot-toast";
 import { AxiosError, AxiosRequestConfig } from "axios";
-import { SendSchema } from "@/schema/send.schema";
 
 class FileApi {
   async upload(file: File, config?: AxiosRequestConfig<FormData>) {
@@ -44,9 +43,9 @@ class FileApi {
     }
   }
 
-  async sendFileOnMail(data: SendSchema) {
+  async sendFileOnMail(id: string, to: string) {
     try {
-      return await api.post(`/file/send`, data);
+      return await api.post(`/file/send`, { id, to });
     } catch (error) {
       if (error instanceof AxiosError) {
         const { response } = error;

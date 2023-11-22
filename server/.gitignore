@@ -5,6 +5,5 @@ public
 dist
 logs
 uploads
-migrations
 *.db
 *.db-journal

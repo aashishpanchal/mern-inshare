@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { toast } from "react-hot-toast";
 import { fileApi } from "@/apis/file.api";
 import { useForm } from "react-hook-form";
@@ -12,10 +12,8 @@ type Props = {
   url: string;
 };
 
-export default function SendMail(props: Props) {
+export default function SendMail({ url }: Props) {
   const [loading, setLoading] = useState(false);
-  const array = props.url.split("/");
-  const id = array[array.length - 1];
 
   const {
     reset,
@@ -26,18 +24,23 @@ export default function SendMail(props: Props) {
     resolver: yupResolver(SendSchema),
   });
 
-  async function onSubmit(data: SendSchema) {
-    try {
-      setLoading(true);
-      const res = await fileApi.sendFileOnMail(data);
-      const { message } = res?.data;
-      toast.success(message);
-    } catch (error) {
-    } finally {
-      reset({ to: "" });
-      setLoading(false);
-    }
-  }
+  const onSubmit = useCallback(
+    async (data: SendSchema) => {
+      const array = url.split("/");
+      const id = array[array.length - 1];
+      try {
+        setLoading(true);
+        const res = await fileApi.sendFileOnMail(id, data.to);
+        const { message } = res?.data;
+        toast.success(message);
+      } catch (error) {
+      } finally {
+        reset({ to: "" });
+        setLoading(false);
+      }
+    },
+    [url]
+  );
 
   return (
     <>
@@ -49,10 +52,9 @@ export default function SendMail(props: Props) {
           placeholder="to@gmail.com"
           left={<MailIcon />}
           error={errors.to?.message}
-          disabled={!props.url}
+          disabled={!url}
         />
-        <input type="hidden" defaultValue={id} {...register("id")} />
-        <Button type="submit" disabled={!props.url || loading}>
+        <Button type="submit" disabled={!url || loading}>
           Send <SendIcon size={18} />
         </Button>
       </form>
