@@ -1,0 +1,19 @@
+{
+  "name": "mern-fileshare",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "start": "cd ./server && pnpm start",
+    "dev": "concurrently \"pnpm web:dev\" \"pnpm server:dev\"",
+    "build": "concurrently \"pnpm web:build\" \"pnpm server:build\"",
+    "web:dev": "cd ./web && pnpm dev",
+    "server:dev": "cd ./server && pnpm dev",
+    "web:build": "cd ./web && pnpm build",
+    "server:build": "cd ./server && pnpm build"
+  },
+  "author": "Aashish Panchal",
+  "license": "ISC",
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
